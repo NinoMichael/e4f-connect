@@ -3,13 +3,21 @@
 
 @tailwind utilities;
 
+@import 'primereact/resources/themes/viva-light/theme.css';
+
 @theme {
     --font-poppins: 'Poppins';
     --font-nunito: 'Nunito';
+    --color-primary: oklch(0.4229 0.087 274.65);
+    --color-secondary: oklch(0.5883 0.1891 25.14);
 }
 
 body {
     @apply font-poppins;
     @apply text-sm;
     @apply text-gray-800;
+}
+
+.p-button {
+    @apply !font-poppins !text-sm !border-none;
 }
