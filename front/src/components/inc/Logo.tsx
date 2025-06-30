@@ -5,7 +5,7 @@ type LogoProps = {
     className?: string;
 };
 
-const Logo: React.FC<LogoProps> = ({ className = "w-36" }) => {
+const Logo: React.FC<LogoProps> = ({ className = "w-28 sm:w-36" }) => {
     return (
         <img
             src={logo}

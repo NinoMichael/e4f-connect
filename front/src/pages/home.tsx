@@ -5,17 +5,17 @@ import promo from "../assets/promo.png";
 
 const Homepage = () => {
     return (
-        <div className="px-16 py-4">
+        <div className="px-8 md:px-16 py-4 h-screen flex flex-col justify-between">
             <header className="flex justify-between items-center">
                 <Logo />
                 <Button
                     label="Sign in"
-                    className="!-mt-2 !px-8 !bg-primary"
+                    className="sm:!-mt-2 !px-8 !bg-primary"
                 />
             </header>
 
-            <main className="mt-3 grid grid-cols-2 gap-16 items-center">
-                <div>
+            <main className="mt-10 md:mt-3 grid md:grid-cols-2 gap-16 items-center">
+                <div className="order-2 text-center md:text-start  md:order-1">
                     <h1 className="text-3xl font-semibold text-primary">
                         Welcome to <span className=" text-4xl font-bold text-secondary font-nunito">E4F Connect</span>,
                         the revolution of learning English in a club!
@@ -31,17 +31,17 @@ const Homepage = () => {
                     />
                 </div>
 
-                <div>
+                <div className="order-1 md:order-2">
                     <img 
                         src={promo}
                     />
                 </div>
             </main>
 
-            <footer className="flex justify-end items-end">
-                <div>
-                    
-                </div>
+            <footer className="mt-20 md:mt-24">
+                <p className="text-center md:text-end text-xs mb-8 md:mb-0">
+                    Copyright © { new Date().getFullYear() } - All rights reserved
+                </p>
             </footer>
         </div>
     )
