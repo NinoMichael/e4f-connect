@@ -21,3 +21,7 @@ body {
 .p-button {
     @apply !font-poppins !text-sm !border-none;
 }
+
+.p-inputtext {
+    @apply font-poppins !text-sm !w-full !border !border-gray-300 focus-within:!ring focus-within:!ring-primary;
+}
