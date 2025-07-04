@@ -4,24 +4,56 @@ import { Password } from "primereact/password";
 import { FloatLabel } from "primereact/floatlabel";
 import { Checkbox } from "primereact/checkbox";
 import { Button } from "primereact/button";
-import Logo from "../components/inc/Logo";  
+import Logo from "../components/inc/Logo";
+
+import { login } from "../services/authService";
 
 import club from "../assets/club.jpg";
 
 const Login = () => {
     const [checked, setChecked] = useState(false);
+    const [ identifier, setIdentifier ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ loading, setLoading ] = useState(false);
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        const formData = {
+            identifier: identifier,
+            password: password
+        };
+
+        setLoading(true);
+
+        try {
+            const response = await login(formData);
+            
+            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('user', JSON.stringify(response.data.role));
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="h-screen grid lg:grid-cols-2">
             <section className="bg-primary hidden lg:block">
                 <img 
                     src={club}
-                    className="w-[65%] rounded-lg mt-24 flex justify-center mx-auto items-center" 
+                    className="w-[65%] rounded-lg mt-28 flex justify-center mx-auto items-center" 
                 />
+                <p className="mt-12 text-white italic font-semibold flex text-center w-96 justify-center mx-auto items-center">
+                    "Learn and communicate easily in English in a collaborative and stimulating environment. Progress together, communicate without barriers, and experience each session with enthusiasm."
+                </p>
             </section>
 
             <section className="bg-white p-12">
-                <form>
+                <form onSubmit={handleLogin}>
                     <Logo className="text-center w-36 mx-auto"/>
 
                     <h1 className="text-2xl font-nunito font-bold text-center">
@@ -34,12 +66,22 @@ const Login = () => {
 
                     <div className="mt-12 md:px-20 space-y-10 w-full flex flex-col justify-center mx-auto">
                         <FloatLabel>
-                            <InputText id="identifier" className="!w-full"/>
+                            <InputText
+                                id="identifier"
+                                className="!w-full"
+                                value={identifier}
+                                onChange={(e) => setIdentifier(e.target.value) }
+                            />
                             <label htmlFor="identifier">Identifier</label>
                         </FloatLabel>
 
                         <FloatLabel>
-                            <Password id="password" className="!w-full"/>
+                            <Password 
+                                id="password" 
+                                className="!w-full"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value) }
+                            />
                             <label htmlFor="password">Password</label>
                         </FloatLabel>
                     </div>
@@ -61,10 +103,11 @@ const Login = () => {
                         </a>
                     </div>
 
-                    <div className="flex justify-center lg:mx-20">
+                    <div className="flex justify-center md:mx-20">
                         <Button
                             label="Sign in"
                             className="!bg-secondary !mt-16 !w-full"
+                            loading={loading}
                         />
                     </div>
                 </form>
