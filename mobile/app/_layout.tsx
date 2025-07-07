@@ -10,21 +10,17 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    Poppins: require('../assets/fonts/Poppins.ttf'),
   });
 
   if (!loaded) {
-    // Async font loading only occurs in development.
     return null;
   }
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
+        <Stack screenOptions={{ headerShown: false }} />
+        <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
