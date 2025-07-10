@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { InputText } from "primereact/inputtext";
 import { Password } from "primereact/password";
 import { FloatLabel } from "primereact/floatlabel";
@@ -11,6 +12,7 @@ import { login } from "../services/authService";
 import club from "../assets/club.jpg";
 
 const Login = () => {
+    const navigateTo = useNavigate();
     const [checked, setChecked] = useState(false);
     const [ identifier, setIdentifier ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -31,6 +33,13 @@ const Login = () => {
             
             localStorage.setItem('token', response.data.token);
             localStorage.setItem('user', JSON.stringify(response.data.role));
+
+            if (response.data.role.user.role == 'member') {
+                navigateTo('/member');
+            }
+            else if (response.data.role.user.role == 'manager') {
+                navigateTo('/manager');
+            }
         }
         catch (err) {
             console.log(err);
