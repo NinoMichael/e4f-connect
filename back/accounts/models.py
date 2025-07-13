@@ -19,7 +19,7 @@ class User(AbstractUser):
     contact = models.CharField(max_length=15, null=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     role = models.CharField(
-        choices=[('member', 'member'), ('admin', 'admin')],
+        choices=[('member', 'member'), ('manager', 'manager')],
         default='member'
     )
     level = models.ForeignKey(Level, on_delete=models.SET_NULL, null=True, blank=True)

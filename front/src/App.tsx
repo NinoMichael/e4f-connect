@@ -15,8 +15,24 @@ function App() {
             <AnimatePresence mode="wait">
                 <div>
                     <Routes>
-                        <Route path="/" element={<PublicRoute><Homepage /></PublicRoute>} />
-                        <Route path="/login" element={<PublicRoute restricted><Login /></PublicRoute>} />
+                        <Route
+                            path="/" 
+                            element={
+                                <PublicRoute>
+                                    <Homepage />
+                                </PublicRoute>
+                            } 
+                        />
+
+                        <Route 
+                            path="/login" 
+                            element={
+                                <PublicRoute restricted>
+                                    <Login />
+                                </PublicRoute>
+                            } 
+                        />
+                        
                         <Route path="/member" element={
                             <MemberRoute>
                                 <MemberDashboard />
