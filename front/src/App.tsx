@@ -3,11 +3,14 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/themes/viva-light/theme.css';
 import { AnimatePresence } from 'framer-motion';
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider, MemberRoute, PublicRoute } from './context/Auth';
+import { AuthProvider, MemberRoute, ManagerRoute, PublicRoute } from './context/Auth';
+
+import ManagerLayout from './layouts/manager';
 
 import Homepage from './pages/home';
 import Login from './pages/login';
 import MemberDashboard from './features/reports/memberDashboard';
+import ManagerDashboard from './features/reports/managerDashboard';
 
 function App() {
     return (
@@ -38,6 +41,14 @@ function App() {
                                 <MemberDashboard />
                             </MemberRoute>
                         } />
+
+                        <Route path="/manager/" element={
+                            <ManagerRoute>
+                                <ManagerLayout />
+                            </ManagerRoute>
+                        }>
+                        <Route path="dashboard" element={<ManagerDashboard />} />
+                        </Route>
                     </Routes>
                 </div>
             </AnimatePresence>

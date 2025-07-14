@@ -35,10 +35,10 @@ const Login = () => {
             localStorage.setItem('user', JSON.stringify(response.data.role));
 
             if (response.data.role.user.role == 'member') {
-                navigateTo('/member');
+                navigateTo('/member/dashboard');
             }
             else if (response.data.role.user.role == 'manager') {
-                navigateTo('/manager');
+                navigateTo('/manager/dashboard');
             }
         }
         catch (err) {

@@ -25,3 +25,7 @@ body {
 .p-inputtext {
     @apply font-poppins !text-sm !w-full !border !border-gray-300 focus-within:!ring focus-within:!ring-primary;
 }
+
+.p-menu {
+    @apply !border-none !font-poppins !text-sm !p-0;
+}

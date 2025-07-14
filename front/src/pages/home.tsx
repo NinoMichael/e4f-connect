@@ -1,20 +1,35 @@
 import { Button } from "primereact/button";
 import Logo from "../components/inc/Logo";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/Auth";
 
 import promo from "../assets/promo.png";
 
 const Homepage = () => {
     const navigateTo = useNavigate();
+    const { isAuthenticated, hasRole } = useAuth();
+
+    const handleRedirect = () => {
+        if ( isAuthenticated() ) {
+            if ( hasRole('member') ) {
+                navigateTo('/member/dashboard');
+            } else {
+                navigateTo('/manager/dashboard');
+            }
+        }
+        else {
+            navigateTo('/login');
+        }
+    }
 
     return (
         <div className="bg-white px-8 md:px-16 py-4 h-screen flex flex-col justify-between">
             <header className="flex justify-between items-center">
                 <Logo />
                 <Button
-                    label="Sign in"
+                    label={ isAuthenticated() ? 'Go to workspace' : 'Sign in' }
                     className="sm:!-mt-2 !px-8 !bg-primary"
-                    onClick={() => navigateTo('/login')}
+                    onClick={handleRedirect}
                 />
             </header>
 
@@ -32,7 +47,7 @@ const Homepage = () => {
                     <Button 
                         label="Get started"
                         className="!bg-primary !text-base !font-semibold !px-12 !py-3 !mt-8"
-                        onClick={() => navigateTo('/login')}
+                        onClick={handleRedirect}
                     />
                 </div>
 

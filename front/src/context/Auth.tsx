@@ -1,5 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
- import { createContext, useContext, useMemo, type ReactNode } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { Navigate, useLocation } from 'react-router-dom';
 import type { Role, AuthContextType, RoleType } from "../lib/types/index";
 
@@ -19,20 +19,20 @@ interface PublicRouteProps {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-    const getUser = (): RoleType | null => {
-        const user = localStorage.getItem('user');
-        if (user) {
-            try {
-                return JSON.parse(user);
-            } catch {
-                localStorage.removeItem('user');
-                return null;
-            }
+export const getUser = (): RoleType | null => {
+    const user = localStorage.getItem('user');
+    if (user) {
+        try {
+            return JSON.parse(user);
+        } catch {
+            localStorage.removeItem('user');
+            return null;
         }
-        return null;
-    };
+    }
+    return null;
+};
 
+export const AuthProvider = ({ children }: AuthProviderProps) => {
     const isAuthenticated = (): boolean => {
         const token = localStorage.getItem('token');
         const user = getUser();
@@ -57,8 +57,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
-
-// eslint-disable-next-line react-refresh/only-export-components
+ 
 export const useAuth = (): AuthContextType => {
     const context = useContext(AuthContext);
     if (!context) {
@@ -75,7 +74,7 @@ export const ProtectedRoute = ({ children, role }: ProtectedRouteProps) => {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 
-    if (role && hasRole(role)) {
+    if (role && !hasRole(role)) {
         return <Navigate to="/" state={{ from: location }} replace />;
     }
 
@@ -92,9 +91,9 @@ export const PublicRoute = ({ children, restricted = false }: PublicRouteProps) 
 
         let redirectTo = '/';
         if (isManager) {
-            redirectTo = '/manager';
+            redirectTo = '/manager/dashboard';
         } else if (isMember) {
-            redirectTo = '/member';
+            redirectTo = '/member/dashboard';
         }
 
         return <Navigate to={redirectTo} state={{ from: location }} replace />;
@@ -107,6 +106,6 @@ export const MemberRoute = ({ children }: { children: ReactNode }) => (
     <ProtectedRoute role="member">{children}</ProtectedRoute>
 );
 
-export const AdminRoute = ({ children }: { children: ReactNode }) => (
+export const ManagerRoute = ({ children }: { children: ReactNode }) => (
     <ProtectedRoute role="manager">{children}</ProtectedRoute>
 );
