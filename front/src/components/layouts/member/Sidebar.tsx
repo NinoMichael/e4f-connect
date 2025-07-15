@@ -1,0 +1,99 @@
+import Logo from "../../inc/Logo";
+import { Button } from 'primereact/button';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const MemberSidebar = () => {
+    const location = useLocation();
+    const navigateTo = useNavigate();
+
+    const baseItems = [
+        { 
+            label: 'Overview', 
+            icon: 'pi pi-home',
+            url: '/member/dashboard' 
+        },
+        { 
+            label: 'Analytics', 
+            icon: 'pi pi-chart-line', 
+            url: '/member/analytics' 
+        },
+        { 
+            label: 'Meeting', 
+            icon: 'pi pi-calendar', 
+            url: '/member/planning' 
+        },
+        { 
+            label: 'Courses', 
+            icon: 'pi pi-book', 
+            url: '/member/courses' 
+        },
+        { 
+            label: 'Resources',
+            icon: 'pi pi-server', 
+            url: '/member/resources'
+        },
+        { 
+            label: 'Quizz', 
+            icon: 'pi pi-discord', 
+            url: '/member/quizz'
+        },
+        { 
+            label: 'Settings', 
+            icon: 'pi pi-cog', 
+            url: '/member/settings' 
+        },
+        { 
+            label: 'Help', 
+            icon: 'pi pi-question-circle', 
+            url: '/member/quizz'
+        },
+    ];
+
+    const isActiveMenu = (path: string) => location.pathname === path;
+
+    return (
+        <div className="bg-gray-50 shadow flex flex-col justify-between min-h-screen w-full max-w-[260px]">
+            <section>
+                <div className="flex justify-center mx-auto p-4">
+                    <Logo className="w-32" />
+                </div>
+
+                <nav className="px-4 -mt-3 space-y-2">
+                    {baseItems.map((item) => {
+                        const isActive = isActiveMenu(item.url);
+
+                        return (
+                            <div
+                                key={item.url}
+                                onClick={() => navigateTo(item.url)}
+                                className={`
+                                    flex items-center gap-3 mb-3 px-4 py-2 rounded-md cursor-pointer transition
+                                    ${isActive
+                                        ? 'bg-primary text-white font-semibold'
+                                        : 'hover:bg-gray-200'}
+                                `}
+                            >
+                                <i className={`${item.icon} ${isActive ? 'text-white' : 'text-gray-500'}`} />
+                                <span className="text-sm ml-3">{item.label}</span>
+                            </div>
+                        );
+                    })}
+                </nav>
+            </section>
+
+            <section className="px-4 mb-6">
+                <Button
+                    icon="pi pi-sign-out"
+                    label="Sign out"
+                    className="w-full !bg-secondary"
+                    pt={{
+                        icon: { className: '!ml-6' },
+                        label: { className: '!mr-6' },
+                    }}
+                />
+            </section>
+        </div>
+    );
+};
+
+export default MemberSidebar;

@@ -11,6 +11,7 @@ import Homepage from './pages/home';
 import Login from './pages/login';
 import MemberDashboard from './features/reports/memberDashboard';
 import ManagerDashboard from './features/reports/managerDashboard';
+import MemberLayout from './layouts/member';
 
 function App() {
     return (
@@ -36,18 +37,20 @@ function App() {
                             } 
                         />
                         
-                        <Route path="/member" element={
+                        <Route path="/member/" element={
                             <MemberRoute>
-                                <MemberDashboard />
+                                <MemberLayout />
                             </MemberRoute>
-                        } />
+                        }>
+                            <Route path="dashboard" element={<MemberDashboard />} />
+                        </Route>
 
                         <Route path="/manager/" element={
                             <ManagerRoute>
                                 <ManagerLayout />
                             </ManagerRoute>
                         }>
-                        <Route path="dashboard" element={<ManagerDashboard />} />
+                            <Route path="dashboard" element={<ManagerDashboard />} />
                         </Route>
                     </Routes>
                 </div>

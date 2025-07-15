@@ -1,17 +1,17 @@
 import { Outlet } from 'react-router-dom';
-import ManagerToolbar from '../components/layouts/manager/Toolbar';
-import ManagerSidebar from '../components/layouts/manager/Sidebar';
+import MemberSidebar from '../components/layouts/member/Sidebar';
+import MemberToolbar from '../components/layouts/member/Toolbar';
 
-const ManagerLayout = () => {
+const MemberLayout = () => {
     return (
         <div className='flex'>
             <div className='w-[22vw]'>
-                <ManagerSidebar/>
+                <MemberSidebar />
             </div>
 
             <div className='w-full'>
                 <header>
-                    <ManagerToolbar />
+                    <MemberToolbar />
                 </header>
 
                 <main className='px-6 mt-4'>
@@ -22,4 +22,4 @@ const ManagerLayout = () => {
     )
 }
 
-export default ManagerLayout;
+export default MemberLayout;
