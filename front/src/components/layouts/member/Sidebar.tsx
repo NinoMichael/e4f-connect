@@ -184,11 +184,6 @@ const MemberSidebar = ({ visible, setVisible }: MemberSidebarProps) => {
                         }}
                         onClick={openLogoutDialog}
                     />
-
-                    <LogoutDialog 
-                        ref={logoutDialogRef} 
-                        handleLogout={handleLogout} 
-                    />
                 </section>
             </Sidebar>
         </>

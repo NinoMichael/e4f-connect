@@ -184,11 +184,6 @@ const ManagerSidebar = ({ visible, setVisible }: ManagerSidebarProps) => {
                         }}
                         onClick={openLogoutDialog}
                     />
-
-                    <LogoutDialog 
-                        ref={logoutDialogRef} 
-                        handleLogout={handleLogout} 
-                    />
                 </section>
             </Sidebar>
         </>
