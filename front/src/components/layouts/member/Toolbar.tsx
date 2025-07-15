@@ -1,5 +1,6 @@
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
+import Logo from '../../inc/Logo';
 import { getUser } from '../../../hooks/useUser';
 
 import userSample from '../../../assets/user.png';
@@ -13,7 +14,7 @@ const MemberToolbar = ({ setVisible }: MemberToolbarProps) => {
 
     return (
         <div className="bg-white px-8 py-4 flex justify-between items-center md:border-b md:border-gray-200">
-            <div>
+            <div className='flex gap-4 items-center'>
                 <h1 className='hidden md:block font-semibold text-2xl'>
                     Welcome to your <span className='text-secondary'>workspace</span> !
                 </h1>
@@ -23,6 +24,8 @@ const MemberToolbar = ({ setVisible }: MemberToolbarProps) => {
                     className='!bg-primary md:!hidden'
                     onClick={() => setVisible(true)}
                 />
+
+                <Logo className="w-20 md:hidden" />
             </div>
 
             <div className="flex items-center gap-6">

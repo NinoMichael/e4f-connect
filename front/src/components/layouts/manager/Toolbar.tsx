@@ -1,18 +1,31 @@
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
+import Logo from '../../inc/Logo';
 import { getUser } from '../../../hooks/useUser';
 
 import userSample from '../../../assets/user.png';
 
-const ManagerToolbar = () => {
+type ManagerToolbarProps = {
+    setVisible: (visible: boolean) => void;
+};
+
+const ManagerToolbar = ({ setVisible }: ManagerToolbarProps) => {
     const user = getUser();
 
     return (
         <div className="bg-white px-8 py-4 flex justify-between items-center border-b border-gray-200">
-            <div>
-                <h1 className='font-semibold text-2xl'>
+            <div className='flex gap-4 items-center'>
+                <h1 className='hidden md:block font-semibold text-2xl'>
                     Welcome to your <span className='text-secondary'>workspace</span> !
                 </h1>
+
+                <Button 
+                    icon="pi pi-bars"
+                    className='!bg-primary md:!hidden'
+                    onClick={() => setVisible(true)}
+                />
+
+                <Logo className="w-20 md:hidden" />
             </div>
 
             <div className="flex items-center gap-6">

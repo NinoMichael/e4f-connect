@@ -1,10 +1,13 @@
 import { useRef } from "react";
 import Logo from "../../inc/Logo";
 import { Button } from 'primereact/button';
+import { Avatar } from "primereact/avatar";
 import { Sidebar } from "primereact/sidebar";
 import { useLocation, useNavigate } from 'react-router-dom';
-import { logout } from "../../../hooks/useUser";
+import { getUser, logout } from "../../../hooks/useUser";
 import LogoutDialog, { type LogoutDialogHandle } from "../../ui/LogoutDialog";
+
+import userSample from '../../../assets/user.png';
 
 type MemberSidebarProps = {
     visible: boolean;
@@ -12,6 +15,7 @@ type MemberSidebarProps = {
 };
 
 const MemberSidebar = ({ visible, setVisible }: MemberSidebarProps) => {
+    const user = getUser();
     const location = useLocation();
     const navigateTo = useNavigate();
     const logoutDialogRef = useRef<LogoutDialogHandle>(null);
@@ -123,15 +127,71 @@ const MemberSidebar = ({ visible, setVisible }: MemberSidebarProps) => {
             <Sidebar
                 visible={visible} 
                 onHide={() => setVisible(false)}
+                className="!bg-gray-50 !min-h-screen !max-w-[50vw] !text-sm"
+                pt={{
+                    content: { className: '!overflow-y-hidden' },
+                    mask: { className: '!bg-gray-500/20' }
+                }}
             >
-                <h2>Sidebar</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
+                <section>
+                    <div className="flex flex-col justify-center items-center mx-auto p-4 -mt-4">
+                        <Avatar 
+                            shape='circle'
+                            image={userSample}
+                            className='opacity-50'
+                        />
+
+                        <div className='mt-2 mb-4'>
+                            <h5 className='font-semibold'>
+                                { user?.user.firstname } { user?.user.lastname.charAt(0) + '.' }
+                            </h5>
+                            <p className='text-xs'>
+                                { user?.identifier }
+                            </p>
+                        </div>
+                    </div>
+
+                    <nav className="-mt-3 space-y-2">
+                        {baseItems.map((item) => {
+                            const isActive = isActiveMenu(item.url);
+
+                            return (
+                                <div
+                                    key={item.url}
+                                    onClick={() => navigateTo(item.url)}
+                                    className={`
+                                        flex items-center gap-3 mb-2 px-4 py-2 rounded-md cursor-pointer transition
+                                        ${isActive
+                                            ? 'bg-primary text-white font-semibold'
+                                            : 'hover:bg-gray-200'}
+                                    `}
+                                >
+                                    <i className={`${item.icon} ${isActive ? 'text-white' : 'text-gray-500'}`} />
+                                    <span className="text-sm ml-3">{item.label}</span>
+                                </div>
+                            );
+                        })}
+                    </nav>
+                </section>
+
+                <section className="mb-6">
+                    <Button
+                        icon="pi pi-sign-out"
+                        label="Sign out"
+                        className="w-full !text-secondary !bg-transparent"
+                        pt={{
+                            label: { className: '!-ml-5' },
+                        }}
+                        onClick={openLogoutDialog}
+                    />
+
+                    <LogoutDialog 
+                        ref={logoutDialogRef} 
+                        handleLogout={handleLogout} 
+                    />
+                </section>
             </Sidebar>
         </>
-
     );
 };
 
