@@ -1,7 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { Navigate, useLocation } from 'react-router-dom';
-import type { Role, AuthContextType, RoleType } from "../lib/types/index";
+import type { Role, AuthContextType } from "../lib/types/index";
+import { getUser } from "../hooks/useUser";
 
 interface AuthProviderProps {
     children: ReactNode;
@@ -18,19 +19,6 @@ interface PublicRouteProps {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export const getUser = (): RoleType | null => {
-    const user = localStorage.getItem('user');
-    if (user) {
-        try {
-            return JSON.parse(user);
-        } catch {
-            localStorage.removeItem('user');
-            return null;
-        }
-    }
-    return null;
-};
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const isAuthenticated = (): boolean => {

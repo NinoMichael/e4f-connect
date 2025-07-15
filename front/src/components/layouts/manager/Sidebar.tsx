@@ -1,10 +1,15 @@
+import { useRef } from "react";
 import Logo from "../../inc/Logo";
 import { Button } from 'primereact/button';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { logout } from "../../../hooks/useUser";
+import LogoutDialog, { type LogoutDialogHandle } from "../../ui/LogoutDialog";
+
 
 const ManagerSidebar = () => {
     const location = useLocation();
     const navigateTo = useNavigate();
+    const logoutDialogRef = useRef<LogoutDialogHandle>(null);
 
     const baseItems = [
         { 
@@ -51,6 +56,15 @@ const ManagerSidebar = () => {
 
     const isActiveMenu = (path: string) => location.pathname === path;
 
+    const openLogoutDialog = () => {
+        logoutDialogRef.current?.show();
+    };
+
+    const handleLogout = () => {
+        logout();
+        navigateTo('/');
+    }
+
     return (
         <div className="bg-gray-50 shadow flex flex-col justify-between min-h-screen w-full max-w-[260px]">
             <section>
@@ -90,6 +104,12 @@ const ManagerSidebar = () => {
                         icon: { className: '!ml-6' },
                         label: { className: '!mr-6' },
                     }}
+                    onClick={openLogoutDialog}
+                />
+
+                <LogoutDialog 
+                    ref={logoutDialogRef} 
+                    handleLogout={handleLogout} 
                 />
             </section>
         </div>

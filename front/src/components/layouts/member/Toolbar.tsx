@@ -1,6 +1,6 @@
 import { Avatar } from 'primereact/avatar';
 import { Button } from 'primereact/button';
-import { getUser } from '../../../context/Auth';
+import { getUser } from '../../../hooks/useUser';
 
 import userSample from '../../../assets/user.png';
 
