@@ -127,7 +127,7 @@ const ManagerSidebar = ({ visible, setVisible }: ManagerSidebarProps) => {
             <Sidebar
                 visible={visible} 
                 onHide={() => setVisible(false)}
-                className="!bg-gray-50 !min-h-screen !max-w-[50vw] !text-sm"
+                className="!bg-gray-50 !min-h-screen !max-w-[15rem] !text-sm"
                 pt={{
                     content: { className: '!overflow-y-hidden' },
                     mask: { className: '!bg-gray-500/20' }
@@ -180,7 +180,7 @@ const ManagerSidebar = ({ visible, setVisible }: ManagerSidebarProps) => {
                         label="Sign out"
                         className="w-full !text-secondary !bg-transparent"
                         pt={{
-                            label: { className: '!-ml-5' },
+                            label: { className: '!-ml-16' },
                         }}
                         onClick={openLogoutDialog}
                     />
