@@ -6,12 +6,13 @@ import { Routes, Route } from 'react-router-dom';
 import { AuthProvider, MemberRoute, ManagerRoute, PublicRoute } from './context/Auth';
 
 import ManagerLayout from './layouts/manager';
+import MemberLayout from './layouts/member';
+import DefaultLayout from './layouts/default';
 
 import Homepage from './pages/home';
 import Login from './pages/login';
 import MemberDashboard from './features/reports/memberDashboard';
 import ManagerDashboard from './features/reports/managerDashboard';
-import MemberLayout from './layouts/member';
 
 function App() {
     return (
@@ -23,10 +24,12 @@ function App() {
                             path="/" 
                             element={
                                 <PublicRoute>
-                                    <Homepage />
+                                    <DefaultLayout />
                                 </PublicRoute>
                             } 
-                        />
+                        >
+                            <Route path="/" element={<Homepage />} />
+                        </Route>
 
                         <Route 
                             path="/login" 
