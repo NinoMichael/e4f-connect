@@ -6,7 +6,7 @@ const DefaultLayout = () => {
         <div>
             <Header />
 
-            <main className='mt-10 md:mt-0'>
+            <main className='mt-4 md:mt-0'>
                 <Outlet />
             </main>
         </div>

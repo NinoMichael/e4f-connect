@@ -87,7 +87,7 @@ const Header = () => {
     ]
 
     return (
-        <header>
+        <header className="sticky top-0 z-50 bg-white">
             <div className="relative h-12 w-full overflow-hidden">
                 {images.map((src, i) => (
                     <motion.img
