@@ -1,8 +1,10 @@
 
+import { useEffect, useState } from "react";
 import { Button } from "primereact/button";
 import { Menubar } from 'primereact/menubar';
+import { Menu } from 'primereact/menu';
+import { Sidebar } from 'primereact/sidebar';
 import Logo from "./Logo";
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "../../context/Auth";
 import { useRedirect } from "../../hooks/helpers/useRedirect";
@@ -13,6 +15,7 @@ import usa from '../../assets/usa.jpg';
 const Header = () => {
     const { isAuthenticated } = useAuth();
     const handleRedirect = useRedirect();
+    const [ visible, setVisible ] = useState(false);
 
     const images = [uk, usa];
     const [index, setIndex] = useState(0);
@@ -28,6 +31,7 @@ const Header = () => {
         {
             label: 'Home',
             url: '/',
+            items: []
         },
         {
             label: 'Courses',
@@ -67,6 +71,19 @@ const Header = () => {
                 },
             ]
         },
+        {
+            label: 'Support',
+            items: [
+                {
+                    label: 'Contact',
+                    url: '/',
+                },
+                {
+                    label: 'FAQs',
+                    url: '/',
+                },
+            ]
+        },
     ]
 
     return (
@@ -85,18 +102,53 @@ const Header = () => {
                 ))}
             </div>
 
-            <div className="flex px-12 justify-between items-center">
+            <div className="flex px-4 sm:px-12 justify-between items-center">
                 <div className="flex gap-6 items-center">
                     <Logo />
 
-                    <Menubar model={menuItems}/>
+                    <Menubar 
+                        model={menuItems}
+                        className="!hidden lg:!block"
+                    />
                 </div>
 
-                <Button
-                    label={ isAuthenticated() ? 'Go to workspace' : 'Sign in' }
-                    className="sm:!-mt-2 !px-8 !bg-primary !rounded-full"
-                    onClick={handleRedirect}
-                />
+                <div className="flex gap-3 sm:gap-6 items-center sm:items-start">
+                    <Button
+                        label={ isAuthenticated() ? 'Workspace' : 'Sign in' }
+                        className="sm:!-mt-2 !px-8 !bg-primary !rounded-full"
+                        onClick={handleRedirect}
+                    />
+
+                    <div className="lg:!hidden">
+                        <Button 
+                            icon="pi pi-bars" 
+                            onClick={() => setVisible(true)}
+                            className="!bg-transparent !text-gray-700 !p-0" 
+                        />
+
+                        <Sidebar 
+                            visible={visible}
+                            position="right"
+                            className="!bg-primary !text-white !m-0 -pt-8 !w-64" 
+                            onHide={() => setVisible(false)}
+                            pt={{
+                                closeButton: { className: '!text-white' },
+                            }}
+                        >
+                            <Menu 
+                                model={menuItems} 
+                                className="!bg-transparent !text-white -mt-2"
+                                pt={{
+                                    menu: { className: '!text-white' },
+                                    submenuHeader: { className: '!bg-transparent !font-bold !text-white' },
+                                    label: { className: '!text-white' },
+                                    icon: { className: '!text-white' },
+                                    menuitem: { className: '!ml-4' },
+                                }}
+                            />
+                        </Sidebar>
+                    </div>
+                </div>
             </div>
         </header>
     )
