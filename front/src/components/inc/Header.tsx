@@ -11,6 +11,7 @@ import { useRedirect } from "../../hooks/helpers/useRedirect";
 
 import uk from '../../assets/uk.jpg';
 import usa from '../../assets/usa.jpg';
+import { Link } from "react-router-dom";
 
 const Header = () => {
     const { isAuthenticated } = useAuth();
@@ -129,10 +130,12 @@ const Header = () => {
                         <Sidebar 
                             visible={visible}
                             position="right"
-                            className="!bg-primary !text-white !m-0 -pt-8 !w-64" 
+                            className="!bg-primary !text-white !m-0 -pt-8 !w-64 !overflow-hidden" 
                             onHide={() => setVisible(false)}
                             pt={{
+                                header: { className: '!p-0' },
                                 closeButton: { className: '!text-white' },
+                                content: { className: '!overflow-hidden' },
                             }}
                         >
                             <Menu 
@@ -146,6 +149,28 @@ const Header = () => {
                                     menuitem: { className: '!ml-4' },
                                 }}
                             />
+
+                            <div className="mt-2 flex gap-4 items-center">
+                                <Link 
+                                    to="/"
+                                    className="hover:scale-105 transform ease-in-out duration-300"
+                                    title="Facebook page"
+                                >
+                                    <div className="bg-white/10 w-10 p-2 rounded-full text-center text-white">
+                                        <i className="pi pi-facebook !text-lg" />
+                                    </div>
+                                </Link>
+
+                                <Link 
+                                    to="/"
+                                    className="hover:scale-105 transform ease-in-out duration-300"
+                                    title="Send an email"
+                                >
+                                    <div className="bg-white/10 w-10 p-2 rounded-full text-center text-white">
+                                        <i className="pi pi-envelope !text-lg" />
+                                    </div>
+                                </Link>
+                            </div>
                         </Sidebar>
                     </div>
                 </div>
