@@ -130,7 +130,7 @@ const Header = () => {
                         <Sidebar 
                             visible={visible}
                             position="right"
-                            className="!bg-primary !text-white !m-0 -pt-8 !w-64 !overflow-hidden" 
+                            className="!bg-primary !text-white !relative !m-0 -pt-8 !w-64 !overflow-hidden" 
                             onHide={() => setVisible(false)}
                             pt={{
                                 header: { className: '!p-0' },
@@ -140,7 +140,7 @@ const Header = () => {
                         >
                             <Menu 
                                 model={menuItems} 
-                                className="!bg-transparent !text-white -mt-2"
+                                className="!bg-transparent !text-white !-mt-2"
                                 pt={{
                                     menu: { className: '!text-white' },
                                     submenuHeader: { className: '!bg-transparent !font-bold !text-white' },
@@ -150,7 +150,7 @@ const Header = () => {
                                 }}
                             />
 
-                            <div className="mt-2 flex gap-4 items-center">
+                            <div className="absolute top-[40%] right-4 flex flex-col gap-4 items-center">
                                 <Link 
                                     to="/"
                                     className="hover:scale-105 transform ease-in-out duration-300"
