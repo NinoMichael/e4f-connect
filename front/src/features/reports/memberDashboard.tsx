@@ -1,61 +1,38 @@
-import { Carousel } from "primereact/carousel";
+import { Button } from "primereact/button";
 
-interface GridWelcomeItem {
-    bgClass: string;
-    text: string;
-}
-  
 const MemberDashboard = () => {
-    const gridWelcomeItems = [
-        {
-            bgClass: "bg-gray-200 text-black",
-            text: "Sharpen your grammar, vocabulary, and expression skills step by step."
-        },
-        {
-            bgClass: "bg-primary text-white",
-            text: "Every session is a new chance to express yourself in real-time."
-        },
-        {
-            bgClass: "bg-gray-50 text-black shadow",
-            text: "Have fun while reinforcing what you've learned."
-        },
-        {
-            bgClass: "bg-secondary text-white",
-            text: "Stay motivated with visible results and guidance."
-        }
-    ];
-
-    const gridWelcomeTemplate = ( item: GridWelcomeItem ) => {
-        return (
-            <div
-                key={item.text}
-                className={`${item.bgClass} flex justify-between items-center rounded-lg p-4 h-full`}
-            >
-                <h6>{item.text}</h6>
-            </div>
-        )
-    }
-
     return (
-        <div>
-            <section className="hidden lg:grid grid-cols-4 gap-6 items-stretch">
-                {
-                    gridWelcomeItems.map((index) => 
-                        gridWelcomeTemplate(index)
-                    )
-                }
+        <div className="mt-4 grid grid-cols-3 gap-8 items-stretch">
+            <section className="col-span-2">
+                <div className="bg-primary shadow-lg text-white rounded-lg p-6 grid grid-cols-2 items-center">
+                    <div>
+                        <h2 className="text-2xl font-mona font-bold">
+                            Haven't started learning and having fun yet ?
+                        </h2>
+
+                        <p className="mt-4">
+                            Dive into interactive lessons, fun games, and daily challenges designed to boost your English step by step 
+                        </p>
+
+                        <div className="mt-8 flex flex-col gap-y-4">
+                            <Button 
+                                icon="pi pi-book"
+                                label="Browse courses"
+                                className="!w-48 !rounded-full !bg-secondary"
+                            />
+                            <Button 
+                                icon="pi pi-discord"
+                                label="Play games"
+                                className="!w-48 !rounded-full"
+                            />
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <Carousel 
-                value={gridWelcomeItems} 
-                numVisible={3} 
-                numScroll={3}  
-                circular
-                autoplayInterval={3000} 
-                itemTemplate={gridWelcomeTemplate}
-                className="lg:!hidden" 
-            />
+            <section className="col-span-1">
 
+            </section>
         </div>
     )
 }

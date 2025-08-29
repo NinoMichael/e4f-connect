@@ -15,7 +15,7 @@ const MemberToolbar = ({ setVisible }: MemberToolbarProps) => {
     return (
         <div className="bg-white px-8 py-4 flex justify-between items-center md:border-b md:border-gray-200">
             <div className='flex gap-4 items-center'>
-                <h1 className='hidden md:block font-semibold text-2xl'>
+                <h1 className='hidden md:block font-mona font-semibold text-lg'>
                     Welcome to your <span className='text-secondary'>workspace</span> !
                 </h1>
 
